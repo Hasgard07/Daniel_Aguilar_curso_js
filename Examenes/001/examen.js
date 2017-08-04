@@ -55,11 +55,12 @@ Biblioteca.prototype.generarSocios=function(){
 		this.agregarSocio(socioNuevo);
 	}
 };
+
 Biblioteca.prototype.ejecutarCiclo=function(){
 	this.generarSocios();
 	this.anadirLibro();
-	for(var indiceSeccion=0;indiceSeccion<this._secciones.length;indiceSeccion++){
-		this._secciones[indiceSeccion].ejecutarCiclo();
+	for(var indiceSocios=0;indiceSocios<this._socios.length;indiceSocios++){
+		this._socios[indiceSocios].ejecutarCiclo();
 	}
 };
 Biblioteca.prototype.anadirLibro=function(){
@@ -115,7 +116,7 @@ Socio.prototype.devolverLibro=function(){
 		for(var indiceSeccion=0;indiceSeccion<secciones.length;indiSeccion++)
 			if(this._librosRetirados==secciones._nombre){
 				secciones[indiceSeccion]._libros.push(this._librosRetirados[indiceDevolucionLibro]);
-				libros.splice(entrega, 1);
+				this._librosRetirados[indiceDevolucionLibro].splice(indiceDevolucionLibro, 1);
 			}
 
 	}
@@ -129,7 +130,7 @@ var entrega=0;
 var cantidadLibrosEntrega=0;
 secciones=bibliotecaDF._secciones;
 for(var indiSeccion=0; indiSeccion<secciones.length; indiSeccion++) {
-		libros=secciones[indiceBiblioteca]._libros;
+		libros=secciones[indiSeccion]._libros;
 		cantidadLibrosEntrega=generarNumeroAleatorioEntre(0,3);
 		for(var indiceCantidadLibros=0;indiceCantidadLibros<cantidadLibrosEntrega-1;indiceCantidadLibros++){
 			entrega=generarNumeroAleatorioEntre(0,libros.length-1);
