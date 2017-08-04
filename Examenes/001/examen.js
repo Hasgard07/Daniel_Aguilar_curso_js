@@ -44,10 +44,10 @@ bibliotecaDF.agregarSeccion(seccionNaturaleza);
 bibliotecaDF.agregarSeccion(seccionHistoria);
 bibliotecaDF.agregarSeccion(seccionViajes);
 
-}
+};
 Biblioteca.prototype.agregarSocio=function(socio){
 	this._socios.push(socio);
-}
+};
 Biblioteca.prototype.generarSocios=function(){
 	for(indiceGenSocio=0;indiceGenSocio<100;indiceGenSocio++){
 		nombreSocio=nombreAleatorio();
@@ -82,17 +82,7 @@ function Seccion(nombre){
 	this._libros=[];
 
 };
-/*Seccion.prototype.ConstruirSecciones=function(){
-	for(indiceGenlibros=0;indiceGenlibros<1000;indiceGenlibros++){
-		nombreLibro="Libro"+sindiceGenlibros.toString();
-		paginasLibro=generarNumeroAleatorioEntre(100,500);
-		autor=nombreAleatorio();
-		tematica=tematicaAleatorio();
-		nuevoLibro = new Libro(nombreLibro,indiceGenlibros,paginasLibro,autor);
-		this.agregarLibro(nuevoLibro);
-	}
 
-};*/
 Seccion.prototype.agregarLibro=function(libro){
 
 	this._libros.push(libro);
@@ -115,23 +105,41 @@ function Socio(nombre,numeroSocio){
 	this._librosRetirados=[];
 };
 Socio.prototype.devolverLibro=function(){
+	var secciones=null;
+	var libros=null;
+	var entrega=0;
+	var cantidadLibrosEntrega=0;
+	secciones=bibliotecaDF._secciones;
+
+	for(var indiceDevolucionLibro=this._librosRetirados.length;indiceDevolucionLibro<=0;indiceDevolucionLibro--){
+		for(var indiceSeccion=0;indiceSeccion<secciones.length;indiSeccion++)
+			if(this._librosRetirados==secciones._nombre){
+				secciones[indiceSeccion]._libros.push(this._librosRetirados[indiceDevolucionLibro]);
+				libros.splice(entrega, 1);
+			}
+
+	}
+
+};
+Socio.prototype.dameLibroAleatorio=function(){
 
 var secciones=null;
 var libros=null;
-van entrega=0;
+var entrega=0;
+var cantidadLibrosEntrega=0;
 secciones=bibliotecaDF._secciones;
 for(var indiSeccion=0; indiSeccion<secciones.length; indiSeccion++) {
 		libros=secciones[indiceBiblioteca]._libros;
-		entrega=generarNumeroAleatorioEntre(0,libros.length-1)
-		this._librosRetirados.push(libros[entrega]);
+		cantidadLibrosEntrega=generarNumeroAleatorioEntre(0,3);
+		for(var indiceCantidadLibros=0;indiceCantidadLibros<cantidadLibrosEntrega-1;indiceCantidadLibros++){
+			entrega=generarNumeroAleatorioEntre(0,libros.length-1);
+			this._librosRetirados.push(libros[entrega]);
+			libros.splice(entrega, 1);
+		
 		}
 	}
 
-}
-Socio.prototype.dameLibroAleatorio=function(){
-
-
-}
+};
 Socio.prototype.ejecutarCiclo=function(){
 	if(this._librosRetirados.length-1<0){
 		this.dameLibroAleatorio();
@@ -139,8 +147,8 @@ Socio.prototype.ejecutarCiclo=function(){
 	else{
 		this.entregarLibro();
 		this.dameLibroAleatorio();
-}
-
+	}
+};
 var bibliotecaDF = new Biblioteca("Biblioteca Polanco");
 bibliotecaDF.construirBiblioteca();
 bibliotecaDF.ejecutarCiclo();
