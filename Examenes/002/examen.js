@@ -182,8 +182,70 @@ La clase guerra deberá tener los métodos:
 */
 class Guerra{
 	constructor(){
-		this.ejercito1=new Ejercito();
-		this.ejercito2=new Ejercito();
+		this._ejercito1=new Ejercito();
+		this._ejercito2=new Ejercito();
+		this._rondas=0;
+		this.iniciarGerra()
+	}
+	iniciarGerra(){
+		let guerra= this;
+		let idserinterval = setInterval(function(){guerra.ejecutarJornada(idserinterval)}, 1000);
+		//this.ejecutarJornada();
+
+	}
+	ejecutarJornada(ciclo)
+	{
+		this._rondas=this._rondas+1;
+
+		if(this._ejercito2._Soldados.length!=0)
+		{
+			for(let i=0;i<this._ejercito1._Soldados.length;i++){
+				let soldadosVivos=this._ejercito2._Soldados.length-1;
+				let soldadoAtacante=Aleatorios.generarNumeroAleatorioEntre(0,soldadosVivos)
+				this._ejercito1._Soldados[i].ataca(this._ejercito2._Soldados[soldadoAtacante]);
+				if(this._ejercito1._Soldados[i]._Salud<=0){
+					this._ejercito1._Soldados[i]._Salud=0;
+					this._ejercito1._bajas.push(this._ejercito1._Soldados[i]);
+					this._ejercito1._Soldados.splice(i,1);
+				}
+
+			}
+		}
+		if(this._ejercito1._Soldados.length==0){
+		console.log("ha ganado el Ejecito2");
+		this.imprimirEstado();
+		clearInterval(ciclo);
+
+		}
+		if(this._ejercito1._Soldados.length!=0)
+		{
+			for(let i=0;i<this._ejercito2._Soldados.length;i++){
+				let soldadosVivos=this._ejercito1._Soldados.length-1;
+				let soldadoAtacante=Aleatorios.generarNumeroAleatorioEntre(0,soldadosVivos)
+				this._ejercito2._Soldados[i].ataca(this._ejercito1._Soldados[soldadoAtacante]);
+				if(this._ejercito2._Soldados[i]._Salud<=0){
+					this._ejercito2._Soldados[i]._Salud=0;
+					this._ejercito2._bajas.push(this._ejercito2._Soldados[i]);
+					this._ejercito2._Soldados.splice(i,1);
+				}
+			}
+		}
+		if(this._ejercito2._Soldados.length==0){
+			console.log("ha ganado el Ejecito1");
+			this.imprimirEstado();
+			clearInterval(ciclo);
+		}
+	}
+	imprimirEstado(){
+		let soldadosVivosEjecito1=this._ejercito1._Soldados.length;
+		let soldadosVivosEjecito2=this._ejercito2._Soldados.length;
+		let bajasEjercito1=this._ejercito1._bajas.length;
+		let bajasEjercito2=this._ejercito2._bajas.length;
+		console.log("Numero de jornadas ejecutadas: "+this._rondas);
+		console.log("Numero de soldados vivos en ejercito 1: "+soldadosVivosEjecito1);
+		console.log("Numero de soldados vivos en ejercito 2: "+soldadosVivosEjecito2);
+		console.log("Bajas ejército 1: "+bajasEjercito1);
+		console.log("Bajas ejército 2: "+bajasEjercito2);
 	}
 }
-ejercito1= new Ejercito();
+let guerra= new Guerra();
