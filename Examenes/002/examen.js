@@ -36,12 +36,12 @@ Y los siguientes métodos:
 class Soldado{
 	constructor(){
 		this._Nombre=Aleatorios.nombreAleatorio();
-		this._Salud=100;
+		this._salud=100;
 		this._ataque=0;
 
 	}
 	ataca(enemigo){
-		this._Salud=this._Salud-enemigo._ataque;
+		this._salud=this._salud-enemigo._ataque;
 	}
 }
 /*2) Realiza las siguientes clases:
@@ -101,26 +101,26 @@ class Ejercito{
 	
 	constructor(){
 		this._pais=Aleatorios.nacionalidadAleatorio();
-		this._Soldados=[];
+		this._soldados=[];
 		this._bajas=[];
 		this.generarEjercito();
 	}
 	generarEjercito(){
 		for (let i=0;i<500;i++){
 			let soldadoDeInfanteria= new SoldadoDeInfanteria();
-			this._Soldados.push(soldadoDeInfanteria);
+			this._soldados.push(soldadoDeInfanteria);
 		}
 		for (let i=0;i<200;i++){
 			let soldadoDeCaballeria= new SoldadoDeCaballeria();
-			this._Soldados.push(soldadoDeCaballeria);
+			this._soldados.push(soldadoDeCaballeria);
 		}
 		for (let i=0;i<200;i++){
 			let soldadoDeArtilleria= new SoldadoDeArtilleria();
-			this._Soldados.push(soldadoDeArtilleria);
+			this._soldados.push(soldadoDeArtilleria);
 		}
 		for (let i=0;i<100;i++){
 			let soldadoPilotoF18= new SoldadoPilotoF18();
-			this._Soldados.push(soldadoPilotoF18);
+			this._soldados.push(soldadoPilotoF18);
 		}
 	}
 
@@ -168,40 +168,40 @@ class Guerra{
 	{
 		this._rondas=this._rondas+1;
 		if(empieza==1){
-			if(this._ejercito2._Soldados.length!=0)
+			if(this._ejercito2._soldados.length!=0)
 			{
-				for(let i=0;i<this._ejercito1._Soldados.length;i++){
-					let soldadosVivos=this._ejercito2._Soldados.length-1;
+				for(let i=0;i<this._ejercito1._soldados.length;i++){
+					let soldadosVivos=this._ejercito2._soldados.length-1;
 					let soldadoAtacante=Aleatorios.generarNumeroAleatorioEntre(0,soldadosVivos)
-					this._ejercito1._Soldados[i].ataca(this._ejercito2._Soldados[soldadoAtacante]);
-					if(this._ejercito1._Soldados[i]._Salud<=0){
-						this._ejercito1._Soldados[i]._Salud=0;
-						this._ejercito1._bajas.push(this._ejercito1._Soldados[i]);
-						this._ejercito1._Soldados.splice(i,1);
+					this._ejercito1._soldados[i].ataca(this._ejercito2._soldados[soldadoAtacante]);
+					if(this._ejercito1._soldados[i]._salud<=0){
+						this._ejercito1._soldados[i]._salud=0;
+						this._ejercito1._bajas.push(this._ejercito1._soldados[i]);
+						this._ejercito1._soldados.splice(i,1);
 					}
 
 				}
 			}
-			if(this._ejercito1._Soldados.length==0){
+			if(this._ejercito1._soldados.length==0){
 			console.log("ha ganado el Ejecito2");
 			this.imprimirEstado();
 			clearInterval(ciclo);
 
 			}
-			if(this._ejercito1._Soldados.length!=0)
+			if(this._ejercito1._soldados.length!=0)
 			{
-				for(let i=0;i<this._ejercito2._Soldados.length;i++){
-					let soldadosVivos=this._ejercito1._Soldados.length-1;
+				for(let i=0;i<this._ejercito2._soldados.length;i++){
+					let soldadosVivos=this._ejercito1._soldados.length-1;
 					let soldadoAtacante=Aleatorios.generarNumeroAleatorioEntre(0,soldadosVivos)
-					this._ejercito2._Soldados[i].ataca(this._ejercito1._Soldados[soldadoAtacante]);
-					if(this._ejercito2._Soldados[i]._Salud<=0){
-						this._ejercito2._Soldados[i]._Salud=0;
-						this._ejercito2._bajas.push(this._ejercito2._Soldados[i]);
-						this._ejercito2._Soldados.splice(i,1);
+					this._ejercito2._soldados[i].ataca(this._ejercito1._soldados[soldadoAtacante]);
+					if(this._ejercito2._soldados[i]._salud<=0){
+						this._ejercito2._soldados[i]._salud=0;
+						this._ejercito2._bajas.push(this._ejercito2._soldados[i]);
+						this._ejercito2._soldados.splice(i,1);
 					}
 				}
 			}
-			if(this._ejercito2._Soldados.length==0){
+			if(this._ejercito2._soldados.length==0){
 				console.log("ha ganado el Ejecito1");
 				this.imprimirEstado();
 				clearInterval(ciclo);
@@ -209,39 +209,39 @@ class Guerra{
 		}
 		else{
 
-			if(this._ejercito1._Soldados.length!=0)
+			if(this._ejercito1._soldados.length!=0)
 			{
-				for(let i=0;i<this._ejercito2._Soldados.length;i++){
-					let soldadosVivos=this._ejercito1._Soldados.length-1;
+				for(let i=0;i<this._ejercito2._soldados.length;i++){
+					let soldadosVivos=this._ejercito1._soldados.length-1;
 					let soldadoAtacante=Aleatorios.generarNumeroAleatorioEntre(0,soldadosVivos)
-					this._ejercito2._Soldados[i].ataca(this._ejercito1._Soldados[soldadoAtacante]);
-					if(this._ejercito2._Soldados[i]._Salud<=0){
-						this._ejercito2._Soldados[i]._Salud=0;
-						this._ejercito2._bajas.push(this._ejercito2._Soldados[i]);
-						this._ejercito2._Soldados.splice(i,1);
+					this._ejercito2._soldados[i].ataca(this._ejercito1._soldados[soldadoAtacante]);
+					if(this._ejercito2._soldados[i]._salud<=0){
+						this._ejercito2._soldados[i]._salud=0;
+						this._ejercito2._bajas.push(this._ejercito2._soldados[i]);
+						this._ejercito2._soldados.splice(i,1);
 					}
 				}
 			}
-			if(this._ejercito2._Soldados.length==0){
+			if(this._ejercito2._soldados.length==0){
 				console.log("ha ganado el Ejecito1");
 				this.imprimirEstado();
 				clearInterval(ciclo);
 			}
-			if(this._ejercito2._Soldados.length!=0)
+			if(this._ejercito2._soldados.length!=0)
 			{
-				for(let i=0;i<this._ejercito1._Soldados.length;i++){
-					let soldadosVivos=this._ejercito2._Soldados.length-1;
+				for(let i=0;i<this._ejercito1._soldados.length;i++){
+					let soldadosVivos=this._ejercito2._soldados.length-1;
 					let soldadoAtacante=Aleatorios.generarNumeroAleatorioEntre(0,soldadosVivos)
-					this._ejercito1._Soldados[i].ataca(this._ejercito2._Soldados[soldadoAtacante]);
-					if(this._ejercito1._Soldados[i]._Salud<=0){
-						this._ejercito1._Soldados[i]._Salud=0;
-						this._ejercito1._bajas.push(this._ejercito1._Soldados[i]);
-						this._ejercito1._Soldados.splice(i,1);
+					this._ejercito1._soldados[i].ataca(this._ejercito2._soldados[soldadoAtacante]);
+					if(this._ejercito1._soldados[i]._salud<=0){
+						this._ejercito1._soldados[i]._salud=0;
+						this._ejercito1._bajas.push(this._ejercito1._soldados[i]);
+						this._ejercito1._soldados.splice(i,1);
 					}
 
 				}
 			}
-			if(this._ejercito1._Soldados.length==0){
+			if(this._ejercito1._soldados.length==0){
 			console.log("ha ganado el Ejecito2");
 			this.imprimirEstado();
 			clearInterval(ciclo);
@@ -251,8 +251,8 @@ class Guerra{
 
 	}
 	imprimirEstado(){
-		let soldadosVivosEjecito1=this._ejercito1._Soldados.length;
-		let soldadosVivosEjecito2=this._ejercito2._Soldados.length;
+		let soldadosVivosEjecito1=this._ejercito1._soldados.length;
+		let soldadosVivosEjecito2=this._ejercito2._soldados.length;
 		let bajasEjercito1=this._ejercito1._bajas.length;
 		let bajasEjercito2=this._ejercito2._bajas.length;
 		console.log("Numero de jornadas ejecutadas: "+this._rondas);
