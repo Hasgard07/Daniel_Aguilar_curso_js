@@ -1,10 +1,10 @@
 class Pokemon{
-	constructor(nombre,urlDetalle){
+	constructor(nombre,urlDetalle,urlImagen,peso,altura){
 		this._nombre=nombre;
 		this._urlDetalle=urlDetalle;
-		this._urlImagen="";
-		this._peso="";
-		this._altura="";
+		this._urlImagen=urlImagen;
+		this._peso=peso;
+		this._altura=altura;
 	}
 }
 class Pokedex{
@@ -23,19 +23,41 @@ class Pokedex{
 	}
 	getPokemoninit(){
 		this.pintarEstructura();
-		this._pokemonApiClient.getPokemonPagina(this._paginaActual).then((data)=>{
+		this._pokemonApiClient.getPokemonPagina(this._paginaActual,this).then((data)=>{
 		this.paintPaginaPokemon(data);
 			console.log(data);
 		});
 	}
-	getDetallePokemoninit(url){
-		this.pintarEstructura();
-		this._pokemonApiClient.getPokemonUrl(url).then((data)=>{
-		//this.paintPaginaPokemon(data);
+	getDetallePokemoninit(pokemon){
+		this._pokemonApiClient.getPokemonUrl(pokemon._urlDetalle).then((data)=>{
 			console.log(data);
+			pokemon._urlImagen=data._urlImagen;
+			pokemon._peso=data._peso;
+			pokemon._altura=data._altura;
+			this.paintDetallePokemon(pokemon);
 		});
+
+	}
+	paintDetallePokemon(pokemon){
+		let cuerpo = this._contenedorHtml.querySelector("#imagen");
+		cuerpo.innerHTML=null;
+		let div=document.createElement("img");
+		let clase="img-pokemon"
+		div.setAttribute("class",clase);
+		div.setAttribute("src",pokemon._urlImagen);
+		cuerpo.appendChild(div);
+		cuerpo = this._contenedorHtml.querySelector("#nombre");
+		cuerpo.innerHTML="Nombre: "+pokemon._nombre;
+		cuerpo = this._contenedorHtml.querySelector("#peso");
+		cuerpo.innerHTML="Peso: "+pokemon._peso;
+		cuerpo = this._contenedorHtml.querySelector("#altura");
+		cuerpo.innerHTML="Altura: "+pokemon._altura;
+
+		//cuerpo.appendChild(img);	
 	}
 	paintPaginaPokemon(data){
+		let pagina=this._contenedorHtml.querySelector("#paginacion");
+		pagina.innerHTML=this._paginaActual+1;
 		let tbody = this._contenedorHtml.querySelector("tbody");
 		tbody.innerHTML=null;
 		for (let i =0; i<data.length; i++) {
@@ -61,7 +83,7 @@ class Pokedex{
 		tr.appendChild(td2);
 		return tr;
 	}
-	initDetalle(detallePokemonApiClient,pokemon){
+	initDetalle(pokemon){
 		this.getDetallePokemoninit(pokemon);
 	}
 	pintarEstructura(){
@@ -72,14 +94,14 @@ class Pokedex{
 					<form class="form-inline">
 								<div class="form-group">
 								    
-									<button type="button" id="btnCrear" class="btn btn-success">< Anterior</button>
+									<button type="button" id="btnAtras" class="btn btn-success">< Anterior</button>
 								</div>
 								<div class="form-group">
 								    <label id="paginacion" for="text"></label>
 
 								</div>
 								<div class="form-group">
-									<button type="button" id="btnCrear" class="btn btn-success">Siguiente ></button>
+									<button type="button" id="btnAdelante" class="btn btn-success">Siguiente ></button>
 								</div>
 								
 							  
@@ -105,12 +127,25 @@ class Pokedex{
 	 	</div>
 	 	<div class="col-sm-4">
 	 		<div id="detalle" class="well">
-	 			
+	 			<div id="imagen">
+	 			</div>
+	 			<div id="nombre">
+	 			</div>
+	 			<div id="peso">
+	 			</div>
+	 			<div id="altura">
+	 			</div>
 	 		</div>
 	 	</div>
 	 </div>
 		`;
 		this._contenedorHtml.innerHTML=estructura;
+
+
+	let botonAtras = this._contenedorHtml.querySelector("#btnAtras");
+	botonAtras.addEventListener("click",()=>this._maincontroler.paginarAtas());
+	let botonReAdelante = this._contenedorHtml.querySelector("#btnAdelante");
+	botonReAdelante.addEventListener("click",()=>this._maincontroler.paginarAdelante());
 	}
 
 }
@@ -137,21 +172,24 @@ class MainControler{
 		this._container.appendChild(this._divPokedex);
 		document.body.appendChild(this._container);
 	}
-	pintardetalle(){
-
-		this._container = document.querySelector("#detalle");
-		this._container.className = "container";
-
-		this._divdetallePokemon = document.createElement("div");
-		this._divdetallePokemon.className = "almacen-detalle";
-
-		this._container.appendChild(this._divdetallePokemon);
-		document.body.appendChild(this._container);
+	paginarAtas(){
+		if(this._pokedex._paginaActual!=0){
+			this._pokedex._paginaActual=this._pokedex._paginaActual-1;
+			//this.pintarEstructura();
+			this._pokedex.init(this._divPokedex,this._pokemonApiClient);
+		}
 	}
-
+	paginarAdelante(){
+		let maxPaginas=Math.trunc(this._pokedex._numeroTotal/20);
+		if(this._pokedex._paginaActual<maxPaginas){
+			this._pokedex._paginaActual=this._pokedex._paginaActual+1;
+			//this.pintarEstructura();
+			this._pokedex.init(this._divPokedex,this._pokemonApiClient);
+		}
+	}
 	initDetallePokemon(pokemon){
-		this.pintardetalle();
-		this._pokedex.initDetalle(this._divdetallePokemon,pokemon);
+		//this.pintarEstructura();
+		this._pokedex.initDetalle(pokemon);
 	}
 }
 window.onload = () => {
