@@ -1,0 +1,22 @@
+.main-title{
+    margin-bottom: 30px;
+}
+.form-title{
+    margin-top: 0px;
+    margin: 20px;
+}
+#refrescar{
+	
+	margin-bottom: 20px;
+}
+td button{
+    margin-left: 5px;
+}
+#btnEditar{
+	visibility: hidden;
+	margin-left: -60px;
+
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+	padding: 2px;
+}

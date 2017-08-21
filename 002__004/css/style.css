@@ -1,0 +1,185 @@
+.cabecera1{
+	
+	min-height: 80px;
+}
+
+.cabecera2{
+	
+	min-height: 80px;
+}
+
+.cabecera3{
+	
+	min-height: 80px;
+}
+.cabecera4{
+	
+	min-height: 80px;
+}
+.logo{
+	margin-top: 30px;
+}
+.inputbuscar{
+	margin-top: 30px;
+
+}
+
+.span_lupa{
+	background-image: url(/C:/Users/Hasgard/Desktop/curso_js/002__004/img/v1_e3444bc5.png);
+    background-position: 0 -2321px;
+    display: inline-block;
+    margin: -1px;
+    height: 30px;
+    width: 30px;
+    background-size: 92px 2731px;
+
+}
+.box{
+	width: 980px;
+    height: 90px;
+	background-color: black;
+	margin: auto;
+}
+.nav{
+	width: 980px;
+    height: 30px;
+	background-color: black;
+	margin: auto;
+}
+.imgbox{
+	width: 980px;
+    height: 540px;
+	background-color: black;
+	margin: auto;
+}
+.select{
+	font-size: 12px;
+    color: #fff;
+    margin-bottom: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0;
+    text-transform: none !important;
+    line-height: 14px !important;
+    margin-top: 30px;
+}
+.title{
+	margin-left: 10px;
+	color: #fff;
+}
+.centro{
+	width: 920px;
+    height: 540px;
+    max-width: 920px;
+    max-height: 540px;
+}
+.navnoticias{
+	width: 980px;
+	height: 35px;
+    background-color: #494949;
+    background: url(/C:/Users/Hasgard/Desktop/curso_js/002__004/img/newsticker_background.jpg) repeat;
+    margin: auto;
+ }
+.h2noticias{
+	font-size: 14px;
+    color: #76b900;
+    font-weight: bold;
+    background-image: none;
+    border: 0;
+    padding: 5px;
+    margin: 0;
+    text-shadow: #000 0 0 1px;
+}
+.divhnoticias{
+	padding: 5px;	
+}
+.divanoticias{
+	margin-top: 8px;
+	margin-left: -85px;	
+}
+.anoticias{
+	color: #fff;
+    text-decoration: none;
+   	margin-top: 5px;
+   	padding: 5px;
+}
+.boxnoticias{
+	width: 980px;
+    height: 800px;
+	background-color: #fff;
+	margin: auto;
+}
+.h2boxnoticia{
+	background-image: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 3px 3px 3px 8px;
+    text-transform: capitalize;
+    color: #393939;
+    text-shadow: #fff 0 1px 0;
+    margin: 0;
+    border: 0;
+}
+.topgaming{
+	margin-top: 10px;
+	float: left;
+    position: relative;
+    width: 220px;
+    height: 28px;
+    background: url(/C:/Users/Hasgard/Desktop/curso_js/002__004/img/subfeature_header_gradient.gif) repeat-x;
+    border: 1px solid #aaa;
+    z-index: 5;
+    left: 12px;
+}
+.toplatest{
+	background: rgba(0, 0, 0, 0) url(/C:/Users/Hasgard/Desktop/curso_js/002__004/img/subfeature_header_gradient.gif) repeat-x scroll 0 0;
+    border: 1px solid #aaa;
+    display: inline-block;
+    height: 28px;
+    left: 12px;
+    position: relative;
+    top: 10px;
+    width: 660px;
+    z-index: 5;
+}
+.noticia1{
+	overflow: hidden;
+	position: relative;
+    top: 0px;
+    margin-left: 15px;
+    margin-top: 15px;
+    float: left;
+    display: block;
+    cursor: pointer;
+    height: 180px;
+    padding: 10px;
+    background-color: #fff;
+    background: url(/C:/Users/Hasgard/Desktop/curso_js/002__004/img/subfeature_content_gradient.gif) repeat-x bottom;
+    left: 12px;
+    clip: rect(auto auto auto auto);
+    border-left: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    font-size: 12px;
+    margin: 12px 0 0;
+    border-top: 1px solid #aaa;
+}
+strong{
+	color: #000;
+    font-size: 12px;
+    font-weight: bold;
+}
+p{
+	font-size: 11px;
+    text-decoration: none;
+    color: #666;
+    line-height: 16px;
+}
+body{
+	background: url(/C:/Users/Hasgard/Desktop/curso_js/002__004/img/background_gradient.gif) repeat-x;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    background-color: #fff;
+    margin-top: 20px;
+}

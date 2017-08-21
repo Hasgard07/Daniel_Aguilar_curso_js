@@ -1,0 +1,128 @@
+.logo_div{
+	position: relative;
+    display: inline-block;
+    padding: 0 30px 0 30px;
+    width: 150px;
+    height: 80px;
+}
+.logo{
+	max-width: 144px;
+    max-height: 60px;
+}
+.buscar_div{
+	position: relative;
+    width: 60%;
+    z-index: 986;
+    display: inline-block;
+    
+}
+.texbuscar{
+	margin: 0%;
+    height: 26px;
+    width: 100%;
+    left: 0px;
+}
+.texto_busqueda_div{
+	top:-10px;
+    width: 45%;
+    display: inline-block;
+    position: relative;
+}
+.lupa_div{
+	width: 28px;
+	position: relative;
+	display: inline-block;
+	
+
+}
+.lupa{
+    height: 80px;
+    margin-top: 0%;
+    
+    color: white;
+}
+.lupa_img{
+	padding-left: 8px;
+	padding-top: 5px;
+	max-width: 15px;
+    max-height:15px;
+}
+.lupa_div_img{
+	width: auto;
+	position: static;
+	display: block;
+}
+.lupa_button{
+	background: #4285f4;
+	border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    height: 30px;
+}
+.span_lupa{
+	background-image: url(/C:/Users/Hasgard/Desktop/curso_js/002__004/img/v1_e3444bc5.png);
+    background-position: 0 -2321px;
+    display: inline-block;
+    margin: -1px;
+    height: 30px;
+    width: 30px;
+    background-size: 92px 2731px;
+
+}
+.correo_div{
+	margin-left: 30px;
+	position: relative;
+	display: inline-block;
+	left: 0px;
+	color: #eee;
+    cursor: pointer;
+    font-size: 14pt;
+    line-height: 29px;
+
+}
+.span_flecha{
+	top: 50%;
+    margin-top: -2px;
+    margin-left: 6px;
+    height: 4px;
+	width: 8px;
+	background: url(https://ssl.gstatic.com/ui/v1/zippy/arrow_down_white.png);
+	vertical-align: middle;
+    font-size: 0;
+     position: relative;
+    display: inline-block;
+}
+.divicion{
+	position: static;
+	display: block;
+}
+.corre_div_conten{
+	position: relative;
+    display: inline-block;
+}
+.botones_todos{
+	position: relative;
+    display: inline-block;
+
+}
+.boton_recarga{
+	opacity: .55;
+	margin-top: -3px;
+    vertical-align: middle;
+	background: no-repeat url(https://ssl.gstatic.com/mail/sprites/general_white-d6b2975….png) 0 -69px;
+    margin: -3px 6px;
+    width: 21px;
+    height: 21px;
+}
+.span_mas_div{
+	color:white;
+}
+.div_izquierda{
+	color: white;
+}
+.top_div{
+	color: white;
+}
+.box{
+	background-color: black;
+
+}
