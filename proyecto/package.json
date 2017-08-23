@@ -1,0 +1,19 @@
+{
+  "name": "proyecto-js",
+  "version": "1.0.0",
+  "description": "proyectofinal",
+  "main": "index.js",
+  "config":{
+    "port": 8080
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "daniel aguilar",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "express": "^4.15.4"
+  }
+}

@@ -1,0 +1,194 @@
+/*css login inicio*/
+form {
+    border: 3px solid #f1f1f1;
+    width: 70%;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 1px 20px;
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+    opacity: 0.8;
+}
+
+/* Extra style for the cancel button (red) */
+.cancelbtn {
+    width: 100%;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+/* Center the avatar image inside this container */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+/* Avatar image */
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+    width: 88%;
+}
+
+/* The "Forgot password" text */
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
+}
+/*css login fin*/
+/*modal* inicio*/
+#myModal{
+    display: block;
+    padding-left: 0px;
+    padding-left: 0px;
+}
+.modal-content{
+    width: 50%;
+}
+#close-modal-button{
+    text-align: right;
+}
+/*modal fin*/
+/*loader inicio*/
+/* Center the loader */
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+
+/*modal fin*/
+#Formeditar{
+    width: 100%;
+}
+#btn-editar{
+    width: 15%;
+}
+#btn-guardar{
+    width: 15%;
+}
+#btn-eliminar{
+    width: 15%;
+}
+/*formulario comida*/
+.main-title{
+    margin-bottom: 30px;
+}
+.form-title{
+    margin-top: 0px;
+    margin: 20px;
+}
+#refrescar{
+  
+  margin-bottom: 20px;
+}
+td button{
+    margin-left: 5px;
+}
+#btnEditar{
+  visibility: hidden;
+  margin-left: -60px;
+}
+#btnCrear{
+  width: 15%;
+}
+#btnEditar{
+  width: 15%;
+}
+#btnReset{
+  width: 15%; 
+}
+#btmRefrescar{
+  width: 10%; 
+  margin-left: 10%;
+  margin-bottom: 10px;
+}
+#formcomida{
+  width: 100%;
+}
+.well{
+  width: 90%;
+}
+.btncomidaaccion{
+  display: inline-flex;
+}
+#tablecomida{
+  width: 50%;
+}
