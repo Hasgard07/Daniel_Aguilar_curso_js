@@ -62,11 +62,8 @@ class ApiClient{
 
 		let promise = fetch(url, config).then((response) => {
 			if(response.status >=200 || response.status < 300){
-				if(response.type == JSON)
 					return response.json();
-				else{
-					return response.text();
-				}
+
 			}
 			else{
 				return promise.reject(response.text());

@@ -88,13 +88,6 @@ span.psw {
 /*loader inicio*/
 /* Center the loader */
 .loader {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
   border: 16px solid #f3f3f3;
   border-radius: 50%;
   border-top: 16px solid #3498db;
@@ -113,7 +106,6 @@ span.psw {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
 /* Add animation to "page content" */
 .animate-bottom {
   position: relative;
@@ -132,7 +124,12 @@ span.psw {
   from{ bottom:-100px; opacity:0 } 
   to{ bottom:0; opacity:1 }
 }
-
+.loaderajuste{
+    margin-top: 40%;
+    box-shadow: none;
+    border: 0px;
+    background: none;
+}
 
 /*modal fin*/
 #Formeditar{
@@ -186,9 +183,60 @@ td button{
 .well{
   width: 90%;
 }
-.btncomidaaccion{
-  display: inline-flex;
-}
 #tablecomida{
-  width: 50%;
+  width: 100%;
 }
+/*comida*/
+
+#datosbebida{
+  width: 80%;
+}
+.datoprecio{
+  text-align: right;
+}
+.datocantidad{
+  text-align: center;
+}
+.detallelinknone{
+  display:none;
+}
+.detallelinktrue{
+  display:block;
+}
+/*edit user*/
+#Formeditarusuario{
+  width: 70%;
+  margin-left: 15%;
+}
+#btn-editaru{
+  width: 100%
+}
+.btnguardaoff{
+  width: 100%;
+  display:none;
+}
+.btnguardaon{
+  width: 100%;
+  display:block;
+}
+#btn-eliminaru{
+  width: 100%
+}
+.btn{
+  width: 30%;
+  display: inline-block;
+}
+/*login*/
+.loginuser{
+    width: 30%;
+    margin-left: 30%;
+ }
+ .sigupuser{
+    width: 50%;
+    margin-left: 20%;
+ }
+ .btnsigup{
+  width: 40%;
+  display: inline-block;
+  margin-left: 25px;
+ }

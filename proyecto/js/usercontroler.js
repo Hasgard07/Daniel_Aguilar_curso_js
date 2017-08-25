@@ -1,36 +1,43 @@
 
 class Usuario{
-	constructor(){
-		this._id="";
-		this._usuario="";
-		this._nombre="";
-		this._apellido="";
-		this._mail="";
-		this._password="";
+	constructor(id,usuario,nombre,apellido,mail,password){
+		this._id=id;
+		this._usuario=usuario;
+		this._nombre=nombre;
+		this._apellido=apellido;
+		this._mail=mail;
+		this._password=password;
 		this._recodar=0;
 	}
 }
 class UserControler{
-	constructor(clienteApiUser){
-		this._clienteApiUser=clienteApiUser;
-		this._estado=0;
+	constructor(api){
+		this._baseUrl="http://formacion-indra-franlindebl.com/api/users";
 		this._usuarioactivo=new Usuario();
-
+		this._appClient=api;
 	}
-	realizarLogin(){
-		let retorno=0;
-		let promise
-		promise=this._clienteApiUser.autenticarUsuario(this._usuarioactivo).then((response)=>{
-			retorno=response;
-			if(response._id){
-				this._usuarioactivo._id=response._id;
-				this._usuarioactivo._nombre=response.nombre;
-				this._usuarioactivo._apellido=response.apellidos;
-				this._usuarioactivo._mail=response.email;
-				if(this._usuarioactivo._recodar==true)
-				localStorage.setItem('UsuarioLogado', JSON.stringify(this._usuarioactivo));
-			}
-			return retorno;
+	realizarLogin(usuario,afuera){
+		let completeUrl = this._baseUrl+"/login";
+		if(afuera==1){
+			this._usuarioactivo._usuario=usuario._usuario;
+			this._usuarioactivo._password=usuario._password;
+			this._usuarioactivo._recodar=usuario._recodar;
+		}
+
+		let dataApi = this.mapearJson(this._usuarioactivo,"login");
+		let promise = this._appClient.post(completeUrl,dataApi).then((data)=>{
+				let datos=data;
+				this._usuarioactivo._id=data._id;
+				this._usuarioactivo._nombre=data.nombre;
+				this._usuarioactivo._apellido=data.apellidos;
+				this._usuarioactivo._mail=data.email;
+				if(this._usuarioactivo._recodar==true){
+					localStorage.setItem('UsuarioLogado', JSON.stringify(this._usuarioactivo));
+				}
+				return data;
+		})	
+		.catch((data)=>{
+			console.error("Fallo en Autticacion de usuario");
 		});
 		return promise;
 	}
@@ -54,32 +61,76 @@ class UserControler{
 	realizarLogout(){
 
 	}
-	crearUsuario(user){
-		let retorno=0;
-		let promise
-		promise=this._clienteApiUser.createUsuario(user).then((response)=>{
-			retorno=response.code;
-			return retorno;
+	crearUsuario(usuario){
+		let completeUrl = this._baseUrl;
+		let dataApi = this.mapearJson(usuario,"crear");
+		let promise = this._appClient.post(completeUrl,dataApi)
+			.then((data)=>{
+			return data;
+		})	
+		.catch((data)=>{
+			console.error("Fallo en creacion de usuario");
 		});
 		return promise;
 	}
-	borrarUsuario(){
-		let retorno=0;
-		let promise
-		promise=this._clienteApiUser.deleteUsuario(this._usuarioactivo).then((response)=>{
-			retorno=response;
-			return retorno;
+	borrarUsuario(usuario){
+		let completeUrl = this._baseUrl+"/"+usuario._id;
+		let dataApi = this.mapearJson(usuario,"delete");
+		let promise = this._appClient.delete(completeUrl,dataApi)
+			.then((data)=>{
+			return data;
+		})	
+		.catch((data)=>{
+			console.error("Fallo al Borrar el usuario");
 		});
 		return promise;
+	}
+	editarUsuario(usuario){
+		let completeUrl = this._baseUrl+"/"+usuario._id;
+		let dataApi = this.mapearJson(usuario,"crear");
+		let promise = this._appClient.put(completeUrl,dataApi)
+			.then((data)=>{
+			return data;
+		})	
+		.catch((data)=>{
+			console.error("Fallo al editar el usuario");
+		});
+		return promise;
+	}
+	mapearJson(data,proceso){
+		let dataApi=null;
+		if(proceso=="crear"){
+			dataApi={
+					email:data._mail,
+					apellidos:data._apellido,
+					nombre:data._nombre,
+					username:data._usuario,
+					password:data._password
 
+			};
+		}
+		if(proceso=="login"){
+			dataApi={
+				username:data._usuario,
+				password:data._password
+			};
+		}
+		if(proceso=="delete"){
+			dataApi={
+				password:data._password
+			};
+		}
+		return dataApi;
 	}
-	editarUsuario(){
-		let retorno=0;
-		let promise
-		promise=this._clienteApiUser.editUsuario(this._usuarioactivo).then((response)=>{
-			retorno=response.code;
-			return retorno;
-		});
-		return promise;
+	mapearObjeto(data){
+		let usuario= new Usuario(
+					data._id,
+					data.email,
+					data.apellidos,
+					data.nombre,
+					data.username,
+					data.password);
+		return usuario;
 	}
+
 }

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "proyectofinal",
   "main": "index.js",
-  "config":{
+  "config": {
     "port": 8080
   },
   "scripts": {
@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "highcharts": "^5.0.14"
   }
 }
