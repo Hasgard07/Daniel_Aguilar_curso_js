@@ -30,6 +30,7 @@ class PaginaUno extends PaginaMenu{
 		}
 	}
 	getRowForComida(comida){
+		let tbody = this._contenedorHtml.querySelector("#tablacomida");
 		let tr = document.createElement("div");
 		tr.className="row";
 		
@@ -46,22 +47,22 @@ class PaginaUno extends PaginaMenu{
 		let button1=document.createElement("button");
 		let td7=document.createElement("div");
 		td7.className="classfila2 col-sm-6";
-		button1.innerHTML="Editar" 
-		button1.className = "btn btn-warning";
+		button1.innerHTML="<span class='glyphicon glyphicon-pencil'></span></p>";
+		button1.className = "btncomida btn-warning";
 		button1.addEventListener("click", ()=>this.cargarEditarComida(comida));
 		td7.appendChild(button1);
 
 		let button2 = document.createElement("button");
-		button2.innerHTML = "Borrar"
-		button2.className = "btn btn-danger";
+		button2.innerHTML = "<span class='glyphicon glyphicon-trash'></span></p>";
+		button2.className = "btncomida btn-danger";
 		button2.addEventListener("click", ()=>this.borrarComida(comida));
 		td7.appendChild(button2);
 		let button3 = document.createElement("button");
-		button3.innerHTML = "Detalle"
-		button3.className = "btn btn-info";
+		button3.innerHTML = "<span class='glyphicon glyphicon-list-alt'></span></p>";
+		button3.className = "btncomida btn-info";
 		button3.addEventListener("click", ()=>this.pintarDetalle(comida));
 		td7.appendChild(button3);
-		tr.appendChild(td7);
+		tr.appendChild(td7); 
 
 		return tr;
 	}//funciona si no alcanzamos dejar este
@@ -228,32 +229,15 @@ class PaginaUno extends PaginaMenu{
 			</div>
 			<div class="row">
   			<div id="tablacomida" class="col-sm-7">
-				<table id="tablecomida" class="table table-striped table-bordered">
-				    <thead>
-				      <tr>
-				        <th>Nombre</th>
-				        <th>Existencias</th>
-				        <th>Acciones</th>
-				      </tr>
-				    </thead>
-				    <tbody>
-
-				    </tbody>
-		  		</table>
+  			 	<div class="divdetalle row">
+    				<div class="classfila1 col-sm-3">Comida/div>
+    				<div class="classfila2 col-sm-3">Existencias</div>
+    				<div class="classfila2 col-sm-6">Acciones</div>
+    			</div>
+ 			</div>
 		  </div>
 		  <div id="detallecomida" class="col-sm-5">
-		  	<div class="divdetalle row">
-    			<div class="classfila1 col-sm-4">.col-sm-6</div>
-    			<div class="classfila2 col-sm-8">.col-sm-6</div>
- 			</div>
- 			<div class="divdetalle row">
-    			<div class="classfila1 col-sm-4">.col-sm-4</div>
-    			<div class="classfila2 col-sm-8" >.col-sm-8</div>
- 			</div>
- 			<div class="divdetalle row">
-    			<div class="classfila1 col-sm-4">.col-sm-6</div>
-    			<div class="classfila2 col-sm-8">.col-sm-6</div>
- 			</div>
+		  	
 		  </div>
 		  <div id="contenedorModal">
 		  </div>

@@ -252,13 +252,19 @@ td button{
   height: 49px;
   text-align: center;
   padding-top: 15px;
-  border-style: solid;
-  border-color: white;
+  border: 2px solid white;
 
  }
  .classfila2{
   background-color:lavenderblush;
   border-color: white;
   border-style: solid;
-
+  border: 2px solid white;
+    padding-top: 0px;
+ }
+ .btncomida{
+   width: 20%;
+  display: inline-block;
+  height: 32px;
+  margin-left: 5px
  }
