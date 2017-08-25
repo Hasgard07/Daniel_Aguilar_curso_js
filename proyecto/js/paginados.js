@@ -127,7 +127,6 @@ class PaginaDos extends PaginaMenu{
 		bebida._existencias = this._contenedorHtml.querySelector("#existencias").value;
 		bebida._precio = this._contenedorHtml.querySelector("#precio").value;
 		bebida._calorias = this._contenedorHtml.querySelector("#calorias").value;
-
 		return bebida;
 	}
 	editarBebida(){
@@ -137,18 +136,19 @@ class PaginaDos extends PaginaMenu{
 			this.openModal("Error","Datos incompletos","default");
 		}else{
 			this._bebidaControler.editarBebida(bebida).then((response)=>{ 
-				this.openModal("Aviso","Bebida Editada","default");
 				this.getAllBebida();
 				this.resetForm();
 				this.closeLoader();
+				this.openModal("Aviso","Bebida Editada","default");
 			});
 		}
 	}
 	borrarBebida(bebida){
+		this.openLoader();
 		this._bebidaControler.borrarBebida(bebida).then((response)=>{ 
-			this.openModal("Aviso","Bebida Eliminada","default");
 			this.getAllBebida();
 			this.resetForm(); 
+			this.openModal("Aviso","Bebida Eliminada","default");
 		});
 
 	}
@@ -159,10 +159,10 @@ class PaginaDos extends PaginaMenu{
 			this.openModal("Error","Datos incompletos","default");
 		}else{
 			this._bebidaControler.crearBebida(bebida).then((response)=>{ 
-				this.openModal("Aviso","Bebida Creada","default");
 				this.getAllBebida();
 				this.resetForm();
-				this.closeLoader();
+				this.openModal("Aviso","Bebida Creada","default");
+	
 			}); 
 		}
 	}

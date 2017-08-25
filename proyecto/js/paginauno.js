@@ -21,7 +21,7 @@ class PaginaUno extends PaginaMenu{
 	}
 	paintAllComida(data){
 		console.log(data);
-		let tbody = this._contenedorHtml.querySelector("tbody");
+		let tbody = this._contenedorHtml.querySelector("#tablacomida");
 		tbody.innerHTML=null;
 		for (let i =0; i<data.length; i++) {
 			let comida=data[i];
@@ -30,6 +30,42 @@ class PaginaUno extends PaginaMenu{
 		}
 	}
 	getRowForComida(comida){
+		let tr = document.createElement("div");
+		tr.className="row";
+		
+		let td2= document.createElement("div");
+		td2.className="classfila1 col-sm-3";
+		td2.innerHTML=comida._nombre;
+		tr.appendChild(td2);
+
+		let td6 = document.createElement("div");
+		td6.className="classfila1 col-sm-3";
+		td6.innerHTML=comida._existencias;
+		tr.appendChild(td6);
+
+		let button1=document.createElement("button");
+		let td7=document.createElement("div");
+		td7.className="classfila2 col-sm-6";
+		button1.innerHTML="Editar" 
+		button1.className = "btn btn-warning";
+		button1.addEventListener("click", ()=>this.cargarEditarComida(comida));
+		td7.appendChild(button1);
+
+		let button2 = document.createElement("button");
+		button2.innerHTML = "Borrar"
+		button2.className = "btn btn-danger";
+		button2.addEventListener("click", ()=>this.borrarComida(comida));
+		td7.appendChild(button2);
+		let button3 = document.createElement("button");
+		button3.innerHTML = "Detalle"
+		button3.className = "btn btn-info";
+		button3.addEventListener("click", ()=>this.pintarDetalle(comida));
+		td7.appendChild(button3);
+		tr.appendChild(td7);
+
+		return tr;
+	}//funciona si no alcanzamos dejar este
+	/*getRowForComida(comida){
 		let tr = document.createElement("tr");
 
 		
@@ -62,7 +98,7 @@ class PaginaUno extends PaginaMenu{
 		tr.appendChild(td7);
 
 		return tr;
-	}
+	}*/
 	cargaDataComida(){
 		let comida = new Comida();
 		comida._id=this._contenedorHtml.querySelector("#id").value;
@@ -191,7 +227,7 @@ class PaginaUno extends PaginaMenu{
 				<span>   </spand>
 			</div>
 			<div class="row">
-  			<div class="col-sm-7">
+  			<div id="tablacomida" class="col-sm-7">
 				<table id="tablecomida" class="table table-striped table-bordered">
 				    <thead>
 				      <tr>
@@ -206,6 +242,18 @@ class PaginaUno extends PaginaMenu{
 		  		</table>
 		  </div>
 		  <div id="detallecomida" class="col-sm-5">
+		  	<div class="divdetalle row">
+    			<div class="classfila1 col-sm-4">.col-sm-6</div>
+    			<div class="classfila2 col-sm-8">.col-sm-6</div>
+ 			</div>
+ 			<div class="divdetalle row">
+    			<div class="classfila1 col-sm-4">.col-sm-4</div>
+    			<div class="classfila2 col-sm-8" >.col-sm-8</div>
+ 			</div>
+ 			<div class="divdetalle row">
+    			<div class="classfila1 col-sm-4">.col-sm-6</div>
+    			<div class="classfila2 col-sm-8">.col-sm-6</div>
+ 			</div>
 		  </div>
 		  <div id="contenedorModal">
 		  </div>

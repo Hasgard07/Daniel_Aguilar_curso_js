@@ -46,7 +46,6 @@ class PaginaLogin extends Pagina{
 			</form>
 			<div id="contenedorModal">
 			</div>
-			
 			</div>
 			
 

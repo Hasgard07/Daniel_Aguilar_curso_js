@@ -22,7 +22,7 @@ class Pagina{
 		}
 	}
 	closeLoader(){
-		var modal = document.querySelector("#modal");
+		var modal = document.querySelector("#modalloader");
 		if(modal){
 			modal.parentElement.removeChild(modal);
 		}
@@ -30,7 +30,7 @@ class Pagina{
 	openLoader(){
 		let modal  =  document.querySelector("#contenedorModal");
 		let contenedorModal=document.createElement("div");
-		contenedorModal.setAttribute("id", "modal");
+		contenedorModal.setAttribute("id", "modalloader");
 		contenedorModal.innerHTML = `
 			<div class="modal fade in" id="myModal" role="dialog">
 				<div class="modal-dialog">
@@ -253,7 +253,7 @@ class PaginaHome extends PaginaMenu{
 		        }
 		    },
 		    tooltip: {
-		        valueSuffix: ' millions'
+		        valueSuffix: ' En unidades'
 		    },
 		    plotOptions: {
 		        bar: {
@@ -267,7 +267,7 @@ class PaginaHome extends PaginaMenu{
 		        align: 'right',
 		        verticalAlign: 'top',
 		        x: -40,
-		        y: 80,
+		        y: 50,
 		        floating: true,
 		        borderWidth: 1,
 		        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
@@ -310,7 +310,7 @@ class PaginaHome extends PaginaMenu{
 		        }
 		    },
 		    tooltip: {
-		        valueSuffix: ' millions'
+		        valueSuffix: ' En Unidades'
 		    },
 		    plotOptions: {
 		        bar: {
@@ -324,7 +324,7 @@ class PaginaHome extends PaginaMenu{
 		        align: 'right',
 		        verticalAlign: 'top',
 		        x: -40,
-		        y: 80,
+		        y: 50,
 		        floating: true,
 		        borderWidth: 1,
 		        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),

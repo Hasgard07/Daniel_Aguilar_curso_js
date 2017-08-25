@@ -77,6 +77,10 @@ span.psw {
     display: block;
     padding-left: 0px;
     padding-left: 0px;
+    opacity: 1;
+    background-color: rgba(0,0,0,0.8);
+    transition:all 1s;
+
 }
 .modal-content{
     width: 50%;
@@ -239,4 +243,22 @@ td button{
   width: 40%;
   display: inline-block;
   margin-left: 25px;
+ }
+ .divdetalle{
+  width: 70%
+ }
+ .classfila1{
+  background-color:lavender;
+  height: 49px;
+  text-align: center;
+  padding-top: 15px;
+  border-style: solid;
+  border-color: white;
+
+ }
+ .classfila2{
+  background-color:lavenderblush;
+  border-color: white;
+  border-style: solid;
+
  }

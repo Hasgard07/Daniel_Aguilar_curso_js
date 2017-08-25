@@ -35,6 +35,7 @@ class PaginaSignUp extends Pagina{
 			    </div>
 			    <div id="contenedorModal">
 			    </div>
+
 			  </div>
 			</form>
 		</div>
