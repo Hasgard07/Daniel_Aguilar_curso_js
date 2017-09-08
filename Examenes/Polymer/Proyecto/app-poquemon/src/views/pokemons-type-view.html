@@ -1,0 +1,28 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../UI/pokemon-type-component.html">
+<link rel="import" href="../DM/dm-pokemons.html">
+<dom-module id="pokemons-type-view">
+  <template>
+      <h1>Type Pokemon</h1>
+      <pokemon-type-component id="pokemonType" types="[[types]]"></pokemon-type-component>
+      <dm-pokemons types="{{types}}" id="dmPokemonType"></dm-pokemons-skill>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'pokemons-type-view',
+      properties: {
+        types: {
+          type: Object
+        },
+        idType:{
+          type:Number,
+          observer: '_typeChanged',
+        }
+      },
+      _typeChanged: function(){
+        this.$.dmPokemonType.doPokemontypesRequest(this.idType);
+      }
+
+    });
+  </script>

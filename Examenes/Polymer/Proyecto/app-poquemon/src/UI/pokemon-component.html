@@ -1,0 +1,225 @@
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-image/paper-image.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="./pokemon-skill-component.html">
+<link rel="import" href="./pokemon-type-component.html">
+
+<dom-module id="pokemon-component">
+  <style>
+    paper-card {
+      width: 80%;
+      margin: 1rem;
+      display: inline-block;
+      background-color: #f4f3f3;
+      padding: 1rem;
+    }
+    paper-progress {
+    display: inline-block;
+      }
+    .pokemoContentid{
+      line-height: 130px;
+      margin: 0;
+      color: var(--pokemon-content-id-color, green);
+      font-size: var(--pokemon-content-id-font-size, 38px);
+    }
+    .pokemoContentName{
+      line-height: 130px;
+      margin: 0;
+      color: var(--pokemon-content-name-color, green);
+      font-size: var(--pokemon-content-name-font-size, 38px);
+    }
+    .card-content{
+      display: -webkit-flex; /* Safari */
+      -webkit-flex-flow: row-reverse wrap; /* Safari 6.1+ */
+      display: flex;
+      flex-flow: row;
+    }
+    .card-contentDeail{
+      display: -webkit-flex; /* Safari */
+      -webkit-flex-flow: row-reverse wrap; /* Safari 6.1+ */
+      display: flex;
+      flex-flow: row;
+      width: 50%;
+    }
+    .card-content-id{
+      width: 32%;
+      margin-left: 10px;
+      background-color: var(--pokemon-background-color, #f4f3f3);
+      text-align: center;
+      height: 130px;
+      vertical-align: center;
+    }
+    .pokemon-img-detail{
+      width: 40%;
+      margin-left: 10px;
+       margin-top: 10px;
+      background-color: var(--pokemon-background-detail-color, #f4f3f3);
+      text-align: center;
+      vertical-align: center;
+      display: inline-block;
+    }
+    .pokemon-detail-content{
+      width: 58%;
+      background-color: var(--pokemon-background-detail-color, #f4f3f3);
+      
+      vertical-align: top;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    .pokemon-detail-skill{
+       width: 56%;
+      background-color: var(--pokemon-background-detail-color, #f4f3f3);
+      text-align: center;
+      vertical-align: center;
+      display: inline-block;
+    }
+    .imgPokemon{
+      --paper-image-color:blue;
+     --paper-image-color-revealed: white;
+     --paper-image-height: 120px;
+     --paper-image-width:120px;
+     --paper-image-background:#f4f3f3;
+    }
+    .imgPokemonhd{
+      --paper-image-color:blue;
+     --paper-image-color-revealed: white;
+     --paper-image-height: 20%;
+     --paper-image-width: 95%;
+     --paper-image-disabled: true;
+     --paper-image-background:#f4f3f3;
+    }
+    .pokemon-detail{
+      display: inline-block;
+      width: 95%;
+    }
+    .pokemon-subdetail{
+      display: inline-block;
+      width: 30%;
+      vertical-align: top;
+    }
+    .pokemon-subdetail-left{
+      display: inline-block;
+      width: 40%;
+      vertical-align: top;
+    }
+    li{
+      text-align: -webkit-left;
+      list-style:none;
+      list-style-type:none;
+    }
+    paper-button {
+      background: white;
+      color: black;
+      margin-top: 10px;
+      height: 30px;
+      border-radius: 0;      
+      border-left: 1px solid white;
+    }
+  </style>
+  <template>
+    <paper-card>
+      <div class="card-content" on-click="_onPokemonClicked">
+        <div class="card-content-id">
+        <h1 class="pokemoContentid">[[pokemon.id]]</h1>
+        </div>
+        <div class="card-content-id">
+          <h1 class="pokemoContentName">[[pokemon.name]] </h1>
+        </div>
+        <div class="card-content-id">
+          <span>
+              <paper-image class="imgPokemon" disabled src=[[pokemon.img]]></paper-image>
+          </span>
+        </div>
+      </div>
+        <iron-collapse id="collapsedetail">
+          <div class="pokemon-detail">
+            <div class="pokemon-img-detail">
+              <paper-image class="imgPokemonhd" disabled src=[[pokemon.imghd]]></paper-image>
+            </div>
+            <div class="pokemon-detail-content">
+              <div class="pokemon-subdetail">
+                <ul>
+                  <li>Atack: </li>
+                  <li>Defense: </li>
+                  <li>HP: </li>
+                  <li>Speed Atack: </li>
+                  <li>Speed Defense: </li>
+                  <li>Speed: </li>
+                </ul>
+              </div>
+              <div class="pokemon-subdetail-left">
+                <ul>
+                  <li><paper-progress value= [[pokemon.atack]] secondary-progress="100"></paper-progress></li>
+                  <li><paper-progress value= [[pokemon.defense]] secondary-progress="100"></paper-progress></li>
+                  <li><paper-progress value= [[pokemon.HP]] secondary-progress="100"></paper-progress></li>
+                  <li><paper-progress value= [[pokemon.speedAtack]] secondary-progress="100"></paper-progress></li>
+                  <li><paper-progress value= [[pokemon.speedDefense]] secondary-progress="100"></paper-progress></li>
+                  <li><paper-progress value= [[pokemon.speed]] secondary-progress="100"></paper-progress></li>
+                </ul> 
+              </div>
+              <div>
+                <h1>Skills</h1>
+                 <template id="skillslist" is="dom-repeat" items="[[pokemon.skills]]" as="skill">
+                    <paper-button toggles raised on-click="_onPokemonSkill">[[skill.name]]</paper-button>
+                </template>
+              </div>
+              <div>
+                <h1>Types</h1>
+                <template id="typeslist" is="dom-repeat" items="[[pokemon.types]]" as="type">
+                    <paper-button toggles raised on-click="_onPokemonType">[[type.name]]</paper-button>
+                </template>
+              </div>
+            </div>
+          </div>
+          </paper-card>
+      </iron-collapse>
+      <iron-collapse id="collapseskills">
+        <pokemon-skill-component skill=[[skill]]> </pokemon-skill-component>
+      </iron-collapse>
+       <iron-collapse id="collapsestypes">
+        <pokemon-type-component type=[[type]]> </pokemon-type-component>
+      </iron-collapse>
+
+  </template>
+  
+  <script>
+    (function() {
+      Polymer({
+        is: 'pokemon-component',
+        properties: {
+          pokemon: {
+            type: Object
+          },
+          skill: {
+            type: Object
+          },
+          type: {
+            type: Object
+          }
+        },
+        _onPokemonClicked: function(evt) {
+          this.fire('pokemon-clicked', this.pokemon)
+          this.$.collapsedetail.toggle();
+        },
+        _detailPokemonOpen: function() {
+          this.$.collapsedetail.toggle();
+        },
+        _onPokemonType:function(evt){
+          let modelotype = this.$$('#typeslist').itemForElement(evt.target);
+          this.fire('type-clicked',modelotype.id)
+          this.$.collapstypes.toggle();
+        },
+         _onPokemonSkill:function(evt){
+          let modeloSkill= this.$$('#skillslist').itemForElement(evt.target);
+           this.fire('skill-clicked-component',modeloSkill.id);
+        },
+        _onPokemonType:function(evt){
+          let modeloType= this.$$('#typeslist').itemForElement(evt.target);
+          this.fire('type-clicked-component',modeloType.typeid);
+        }
+      });
+    }());
+  </script>
+</dom-module>

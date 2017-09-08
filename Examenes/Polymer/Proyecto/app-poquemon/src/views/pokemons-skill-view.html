@@ -1,0 +1,33 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../UI/pokemon-skill-component.html">
+<link rel="import" href="../DM/dm-pokemons.html">
+<dom-module id="pokemons-skill-view">
+  <template>
+      <h1>Skills Pokemon</h1>
+      <pokemon-skill-component id="Pokemonskilldetail" skills="[[skills]]" on-type-clicked-component="_typeClicked"></pokemon-skill-component>
+      <dm-pokemons skills="{{skills}}" id="dmPokemonSkill"></dm-pokemons>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'pokemons-skill-view',
+      properties: {
+        skills: {
+          type: Array
+        },
+        idSkill:{
+          type:Number,
+          observer: '_skillChanged',
+        }
+      },
+      attached: function() {
+        this.$.dmPokemonSkill.doPokemonSkillsRequest(this.idSkill);
+      },
+      _skillChanged: function(){
+        this.$.dmPokemonSkill.doPokemonSkillsRequest(this.idSkill);
+      },
+      _typeClicked :function(evt){
+        this.fire('type-clicked-app',evt.detail);
+      }
+    });
+  </script>

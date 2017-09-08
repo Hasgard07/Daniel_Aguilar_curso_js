@@ -1,0 +1,37 @@
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="dp-pokemons">
+  <template>
+    <iron-ajax 
+      id="ajaxComponent" 
+      url="http://localhost:3000/pokemons" 
+      handle-as="json" 
+      last-response="{{pokemons}}"
+      last-error="{{error}}"></iron-ajax>
+  </template>
+  <script>
+    (function() {
+      Polymer({
+        is: 'dp-pokemons',
+        properties: {
+          pokemons: {
+            type: Array,
+            notify: true,
+            value: []
+          },
+          idpokemons:{
+                type:Number,
+                notify: true,
+            },
+          error: {
+            type: Object,
+            notify: true
+          }
+        },
+        doRequest: function() {
+          this.$.ajaxComponent.generateRequest();
+        }
+      });
+    }());
+  </script>
+</dom-module>

@@ -1,0 +1,67 @@
+<link rel="import" href="./pokemon-component.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
+<dom-module id="pokemons-list">
+  <style>
+    .selected {
+      background: gray;
+    }
+
+    .delete {
+      background: red;
+      color: white;
+    }
+      paper-input {
+    max-width: 400px;
+    margin: auto;
+  }
+  iron-icon, div[suffix] {
+    color: hsl(0, 0%, 50%);
+    margin-right: 12px;
+  }
+  </style>
+  <template>
+    <div>
+    <paper-input placeholder="Search Pokemos for name" auto-validate pattern="[a-zA-Z]*" error-message="letters only!" value="{{filterVal::input}}">
+
+    </paper-input>
+    </div>
+    <template id="pokemonsList" is="dom-repeat" items="[[pokemons]]" as="pokemon" filter="{{_filter(filterVal)}}">
+      <pokemon-component 
+        pokemon="[[pokemon]]" 
+        on-pokemon-click-detail="_getPokemonsDetail">
+      </pokemon-component>
+    </template>
+  </template>
+
+  <script>
+    (function() {
+      Polymer({
+        is: 'pokemons-list',
+        properties: {
+          pokemons: {
+            type: Array
+          },
+          skill: {
+            type: Object
+          },
+          searchPokemon: {
+            type:String
+          }
+        },
+        _getPokemonsDetail: function(evt) {
+          let model = this.$.pokemonsList.itemForElement(evt.target);
+          this.fire('pokemons-click-detail',  model);
+        },
+        _filter: function(val) {  
+          return function(pokemon) {
+            if (!val) return true;
+            if (!pokemon) return false;
+            return (pokemon.name && ~pokemon.name.toLowerCase().indexOf(val.toLowerCase()));
+            };
+          }
+      });
+    }());
+  </script>
+</dom-module>

@@ -1,0 +1,178 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="my-icons.html">
+
+<dom-module id="my-app">
+  <template>
+    <style>
+      :host {
+        --app-primary-color: #4285f4;
+        --app-secondary-color: black;
+
+        display: block;
+      }
+
+      app-header {
+        color: #fff;
+        background-color: var(--app-primary-color);
+      }
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+
+      .drawer-list {
+        margin: 0 20px;
+      }
+
+      .drawer-list a {
+        display: block;
+        padding: 0 16px;
+        text-decoration: none;
+        color: var(--app-secondary-color);
+        line-height: 40px;
+      }
+
+      .drawer-list a.iron-selected {
+        color: black;
+        font-weight: bold;
+      }
+    </style>
+
+    <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="[[rootPath]]:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+    
+    <app-route
+        route="{{subroute}}"
+        pattern="/:id"
+        data="{{subrouteData}}">
+    </app-route>
+
+    <app-drawer-layout fullbleed narrow="{{narrow}}">
+      <!-- Drawer content -->
+      <app-drawer id="drawer" swipe-open="[[narrow]]">
+        <app-toolbar>Menu</app-toolbar>
+        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          <a name="list" href="[[rootPath]]list/">Pokemons List</a>
+          <a name="skills" href="[[rootPath]]skills/">Pokemons Skills</a>
+          <a name="types" href="[[rootPath]]types/">Pokemons types</a>
+        </iron-selector>
+      </app-drawer>
+
+      <!-- Main content -->
+      <app-header-layout has-scrolling-region>
+
+        <app-header condenses reveals effects="waterfall">
+          <app-toolbar>
+            <!-- <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button> -->
+            <div main-title>[[page]]</div>
+          </app-toolbar>
+        </app-header>
+
+        <iron-pages
+            selected="[[page]]"
+            attr-for-selected="name"
+            fallback-selection="view404"
+            role="main">
+          <pokemons-list-view name="list" id-pokemon="[[subrouteData.id]]" on-skill-clicked-app="_onNavigateSkill" on-type-clicked-app="_onNavigateType"></pokemons-list-view>
+          <pokemons-detail-view pokemon-id="[[pokemonId]]" name="detail"></pokemons-detail-view>
+          <pokemons-skill-view id-skill="[[skillId]]" name="skills" on-type-clicked-app="_onNavigateType"></pokemons-skill-view>
+          <pokemons-type-view id-type="[[typeId]]" name="types"></pokemons-type-view>
+          <my-view404 name="view404"></my-view404>
+        </iron-pages>
+      </app-header-layout>
+    </app-drawer-layout>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-app',
+
+      properties: {
+        page: {
+          type: String,
+          reflectToAttribute: true,
+          observer: '_pageChanged',
+        },
+        detail: Number,
+        pokemonId:Number,
+        skillId:Number,
+        typeId:Number
+      },
+
+      observers: [
+        '_routePageChanged(routeData.page)',
+        '_onIdChanged(subrouteData.id)',
+      ],
+
+      _routePageChanged: function(page) {
+        this.page = page || 'list';
+
+        if (this.$.drawer && !this.$.drawer.persistent) {
+          this.$.drawer.close();
+        }
+      },
+
+      _routes: {
+        'list': 'views/pokemons-list-view.html',
+        //'detail': 'views/pokemons-detail-view.html',
+        'skills': 'views/pokemons-skill-view.html',
+        'types': 'views/pokemons-type-view.html',
+      },
+      _onIdChanged: function(id) {
+        this.set('pokemonId', '');
+        this.set('skillId', '');
+        this.set('typeId', '');
+        if (this.page === 'list') {
+          this.set('pokemonId', id);
+        } else if (this.page === 'skills') {
+          this.set('skillId', id);
+        } else if (this.page === 'types') {
+          this.set('typeId', id);
+        }
+      },
+      _pageChanged: function(page) {
+        // Load page import on demand. Show 404 page if fails
+        var resolvedPageUrl = this.resolveUrl(this._routes[page]);
+        this.importHref(resolvedPageUrl, null, this._showPage404, true);
+      },
+
+      _onNavigateSkill: function(evt) {
+        this.set('detail', evt.detail);
+        window.history.pushState({}, null, 'skills/' + evt.detail);
+        window.dispatchEvent(new CustomEvent('location-changed'));
+      },
+      _onNavigateType: function(evt) {
+        this.set('detail', evt.detail);
+        window.history.pushState({}, null, 'types/' + evt.detail);
+        window.dispatchEvent(new CustomEvent('location-changed'));
+      },
+      _showPage404: function() {
+        this.page = 'view404';
+      },
+    });
+  </script>
+</dom-module>

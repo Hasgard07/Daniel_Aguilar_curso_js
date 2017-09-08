@@ -1,0 +1,53 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../DM/dm-pokemons.html">
+<link rel="import" href="../UI/pokemons-list.html">
+
+<dom-module id="pokemons-list-view">
+  <template>
+      <!-- <paper-spinner active></paper-spinner> -->
+      <h1> List Pokemons</h1>
+      <pokemons-list pokemons="[[pokemons]]" on-skill-clicked-component="_onSkillDetail" on-type-clicked-component="_onTypeDetail"></pokemons-list>
+      <dm-pokemons pokemons="{{pokemons}}" id="pokemonsDM"></dm-pokemons>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'pokemons-list-view',
+      properties: {
+        pokemons: {
+          type: Array
+        },
+        idPokemon:{
+          type:Object,
+          observer: '_pokemonIdChanged'
+        }
+      },
+      attached: function() {
+        this.$.pokemonsDM.doPokemonRequest(this.idPokemon);
+      },
+      _onSkillDetail: function(evt) {
+        console.log('list'+evt.detail)
+        this.fire('skill-clicked-app', evt.detail);
+      },
+       _onTypeDetail: function(evt) {
+        console.log('list'+evt.detail)
+        this.fire('type-clicked-app', evt.detail);
+      },
+      _pokemonIdChanged: function(){
+        this.$.pokemonsDM.doPokemonRequest(this.idPokemon);
+      }
+
+    });
+  </script>
+</dom-module>

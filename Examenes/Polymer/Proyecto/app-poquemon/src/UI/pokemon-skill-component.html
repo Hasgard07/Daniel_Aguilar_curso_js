@@ -1,0 +1,100 @@
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-image/paper-image.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+<dom-module id="pokemon-skill-component">
+  <style>
+    paper-card {
+      width: 80%;
+      margin: 1rem;
+      display: inline-block;
+      background-color: #f4f3f3;
+      padding: 1rem;
+    }
+    paper-progress {
+    display: inline-block;
+      }
+    .pokemon-detail-content{
+      width: 58%;
+      background-color: var(--pokemon-background-detail-color, #f4f3f3);
+      vertical-align: top;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    .pokemon-detail{
+      display: inline-block;
+      width: 95%;
+    }
+    .pokemon-subdetail{
+      display: inline-block;
+      width: 30%;
+      vertical-align: top;
+      
+    }
+    .pokemon-subdetail-left{
+      display: inline-block;
+      width: 40%;
+      vertical-align: top;
+      height: 20%;
+      
+    }
+    paper-button {
+      background: white;
+      color: black;
+      height: 100%;
+      border-radius: 0;      
+      border-left: 1px solid white;
+    }
+    li{
+      text-align: -webkit-left;
+      list-style:none;
+      list-style-type:none;
+    }
+  </style>
+	<template>
+  <template id="skilllist" is="dom-repeat" items="[[skills]]" as="skill">
+		<paper-card>
+		<div>
+              <h1>[[skill.name]]</h1>
+              <div class="pokemon-detail-content">
+              <div class="pokemon-subdetail">
+                <ul>
+                  <li>Accuracy: </li>
+                  <li>Power: </li>
+                  <li>PP: </li>
+                </ul>
+              </div>
+              <div class="pokemon-subdetail-left">
+                <ul>
+                  <li><paper-progress value= [[skill.accuracy]] secondary-progress="100"></paper-progress></li>
+                  <li><paper-progress value= [[skill.power]] secondary-progress="100"></paper-progress></li>
+                  <li><paper-progress value= [[skill.pp]] secondary-progress=[[skills.max_pp]]></paper-progress></li>
+                </ul> 
+              </div>
+              <div>
+              	<h3>Type</h3>
+                <paper-button toggles raised on-click="_onPokemonSkillType">[[skill.typename]]</paper-button>
+              </div>
+            </div>
+         </div>
+        </paper-card>
+    </template>
+	</template>
+</dom-module>
+ <script>
+    (function() {
+      Polymer({
+        is: 'pokemon-skill-component',
+        properties: {
+          skills: {
+            type: Array
+          }
+        },
+        _onPokemonSkillType:function(evt){
+          let modeloType= this.$$('#skilllist').itemForElement(evt.target);
+          this.fire('type-clicked-component',modeloType.typeid);
+        }
+      });
+    }());
+  </script>

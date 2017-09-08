@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-image/paper-image.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+<dom-module id="pokemon-type-component">
+  <style>
+    paper-card {
+      width: 80%;
+      margin: 1rem;
+      display: inline-block;
+      background-color: #f4f3f3;
+      padding: 1rem;
+    }
+    paper-button {
+      background: white;
+      color: black;
+      height: 100%;
+      border-radius: 0;      
+      border-left: 1px solid white;
+    }
+  </style>
+	<template>
+    <template id="skilllist" is="dom-repeat" items="[[types]]" as="type">
+  		<paper-card>
+  			<div>
+  				<h1>[[type.english]]</h1>
+  			</div>
+  			<div>
+  				<h2>[[type.japanese]]</h2>
+  				<h3>[[type.chinese]]</h3>
+  			</div>
+  		</paper-card>
+    </template>
+	</template>
+</dom-module>
+<script>
+    (function() {
+      Polymer({
+        is: 'pokemon-type-component',
+        properties: {
+          types: {
+            types: Object
+          }
+        }
+      });
+    }());
+  </script>

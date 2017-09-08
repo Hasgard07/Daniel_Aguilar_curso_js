@@ -1,0 +1,182 @@
+<link rel="import" href="../DP/dp-pokemons.html">
+<link rel="import" href="../DP/dp-pokemons-skills.html">
+<link rel="import" href="../DP/dp-pokemons-types.html">
+<dom-module id="dm-pokemons">
+  <template>
+    <dp-pokemons id="pokemonsDP" 
+      pokemons="{{_pokemons}}"
+      error="{{_error}}"></dp-pokemons>
+    <dp-pokemons-skills id="pokemonsSkillDP" 
+      skills="{{_skills}}"
+      error="{{_error}}"></dp-pokemons-skills>
+    <dp-pokemons-types id="pokemonsTypeDP" 
+      types="{{_types}}"
+      error="{{_error}}"></dp-pokemons-types>
+  </template>
+  <script>
+    (function() {
+      Polymer({
+        is: 'dm-pokemons',
+        properties: {
+          pokemons: {
+            type: Array,
+            notify: true
+          },
+          _pokemons: {
+            type: Array,
+            observer: '_onPokemonsChange'
+          },
+          skills: {
+            type: Object,
+            notify: true
+          },
+          _skills: {
+            type: Object,
+            notify: true,
+            observer: '_on_SkillPokemonsChange'
+          },
+          types: {
+            type: Array,
+            notify: true
+          },
+          _types: {
+            type: Array,
+            notify: true,
+            observer: '_on_TypePokemonsChange'
+          },
+          idpokemon:{
+             type: Number
+          },
+          idskill:{
+             type: Number
+          },
+          idtype:{
+             type: Number
+          },
+          error: {
+            type: Object,
+            observer: '_onErrorsChange'
+          }
+        },
+        doPokemonRequest: function(id) {
+          this.set('idpokemon',id);
+          this.$.pokemonsDP.doRequest();
+        },
+        doPokemonSkillsRequest: function(id) {
+          this.set('idskill',id);
+          this.$.pokemonsSkillDP.doRequest();
+        },
+        doPokemontypesRequest:function(id) {
+          this.set('idtype',id);
+          this.$.pokemonsTypeDP.doRequest();
+        },
+        _onPokemonsChange: function(pokemons = []) {
+          let pokemonsMapped=[];
+          for (var i = 0; i < this._pokemons.length; i++) {
+            let pokemon={};
+            let egg=[];
+            let level_up=[];
+            let tm=[];
+            let transfer=[];
+            let tutor=[];
+            pokemon.id = this._pokemons[i].id;
+            pokemon.name = this._pokemons[i].ename;
+            pokemon.img = this._pokemons[i].img.thumb;
+            pokemon.imghd = this._pokemons[i].img.detail;
+            pokemon.atack = this._pokemons[i].base.Attack;
+            pokemon.defense = this._pokemons[i].base.Defense;
+            pokemon.HP = this._pokemons[i].base.HP;
+            pokemon.speedAtack = this._pokemons[i].base['Sp.Atk'];
+            pokemon.speedDefense = this._pokemons[i].base['Sp.Def'];
+            pokemon.speed = this._pokemons[i].base.Speed;
+            egg = this._pokemons[i].skills.egg;
+            level_up = this._pokemons[i].skills.level_up;
+            tm = this._pokemons[i].skills.tm;
+            transfer = this._pokemons[i].skills.transfer;
+            tutor = this._pokemons[i].skills.tutor;
+            if(!egg){
+              egg=[];
+            }
+            if(!level_up){
+              level_up=[];
+            }
+            if(!tm){
+              tm=[];
+            }
+            if(!transfer){
+              transfer=[];
+            }
+            if(!tutor){
+              tutor=[];
+            }
+            pokemon.skills=egg.concat(level_up,tm,transfer,tutor);
+            pokemon.types =this._pokemons[i].type.map(typ => ({
+                id: typ.id,
+                name: typ.name
+              }));
+            pokemonsMapped.push(pokemon);
+
+          }
+           if(this.idpokemon){
+            let pokemonsMappedFilter;
+            pokemonsMappedFilter=pokemonsMapped.filter(pokemonsMapped => Number(pokemonsMapped.id)===Number(this.idpokemon));
+            this.set('pokemons', pokemonsMappedFilter);
+           }else{         
+            this.set('pokemons', pokemonsMapped);
+           }
+        },
+        _on_SkillPokemonsChange: function(skills = []) {
+          let skillsMapped=[];
+           for (var i = 0; i < this._skills.length; i++) {
+              if(this._skills[i].ename!=null){
+                let skill={};
+                skill.name =this._skills[i].ename;
+                skill.accuracy = this._skills[i].accuracy;
+                skill.power = this._skills[i].power;
+                skill.pp = this._skills[i].pp;
+                skill.max_pp = this._skills[i].max_pp;
+                if(!skill.max_pp){
+                  skill.max_pp=100;
+                }
+                skill.category = this._skills[i].category;
+                skill.id = this._skills[i].id;
+                skill.typeid = this._skills[i].type['id'];
+                skill.typename = this._skills[i].type['name'];
+                skillsMapped.push(skill);
+              }
+            }
+            if(this.idskill){
+              let skillsMappedFilter;
+              skillsMappedFilter=skillsMapped.filter(skillsMapped => Number(skillsMapped.id)===Number(this.idskill));
+              this.set('skills', skillsMappedFilter);
+            }else{
+              this.set('skills', skillsMapped);
+            }
+        },
+        _on_TypePokemonsChange: function(types = []) {
+          let typesMapped=[];
+          for (var i = 0; i < this._types.length; i++) {
+            let type={};
+            type.id = this._types[i].id;
+            type.english = this._types[i].ename;
+            type.japanese = this._types[i].jname;
+            type.chinese = this._types[i].cname;
+            typesMapped.push(type);
+          }
+          if(this.idtype){
+              let typesMappedFilter;
+              typesMappedFilter=typesMapped.filter(typesMapped => Number(typesMapped.id)===Number(this.idtype));
+              this.set('types', typesMappedFilter);
+            }else{
+              this.set('types', typesMapped);
+            }
+          },
+        _onErrorChange: function(error) {
+          if (error) {
+            console.log('There\'s an error');
+          }
+        }
+      });
+    }());
+  </script>
+</dom-module>
